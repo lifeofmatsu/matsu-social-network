@@ -1,6 +1,10 @@
 const express = require('express');
-const { getAllUsers, getUserById } = require('../controllers/userController');
 const {
+    getAllThoughts,
+    getThoughtById,
+    createThought,
+    updateThought,
+    deleteThought,
     addReaction,
     removeReaction
 } = require('../controllers/thoughtController');
@@ -8,11 +12,14 @@ const {
 const router = express.Router();
 
 // Define routes
-router.get('/', getAllUsers);
-router.get('/:id', getUserById);
+router.get('/thoughts', getAllThoughts);
+router.get('/thoughts/:id', getThoughtById);
+router.post('/thoughts', createThought);
+router.put('/thoughts/:id', updateThought);
+router.delete('/thoughts/:id', deleteThought);
 
 // Routes for reactions
-router.post('/:thoughtId/reactions', addReaction);
-router.delete('/:thoughtId/reactions/:reactionId', removeReaction);
+router.post('/thoughts/:thoughtId/reactions', addReaction);
+router.delete('/thoughts/:thoughtId/reactions/:reactionId', removeReaction);
 
 module.exports = router;
