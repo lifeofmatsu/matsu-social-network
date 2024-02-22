@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
 // Reaction Schema as a subdocument
 const reactionSchema = new Schema({
     reactionId: {
@@ -27,7 +28,6 @@ const reactionSchema = new Schema({
     },
     id: false
 });
-
 
 const thoughtSchema = new Schema({
     thoughtText: {
