@@ -20,7 +20,7 @@ const reactionSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: timestamp => new Date(timestamp).toLocaleString() // Adjust date format as needed
+        get: timestamp => new Date(timestamp).toLocaleString() 
     }
     }, {
     toJSON: {
@@ -39,7 +39,7 @@ const thoughtSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: timestamp => new Date(timestamp).toLocaleString() // Adjust date format as needed
+        get: timestamp => new Date(timestamp).toLocaleString()
     },
     username: {
         type: String,
@@ -49,9 +49,7 @@ const thoughtSchema = new Schema({
 });
 
 // Virtual for reactionCount
-thoughtSchema.virtual('reactionCount').get(function() {
-    return this.reactions.length;
-});
+thoughtSchema.virtual('reactionCount').get(() => this.reactions.length);
 
 const Thought = mongoose.model('Thought', thoughtSchema);
 

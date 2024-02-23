@@ -72,17 +72,17 @@ const deleteUser = async (req, res) => {
 const addFriend = async (req, res) => {
 	try {
 		// Add friendId to the userId's friends list
-		const user = await User.findByIdAndUpdate(
+		const friend = await User.findByIdAndUpdate(
 			req.params.userId,
 			{ $addToSet: { friends: req.params.friendId } }, // using $addToSet to avoid duplicates
 			{ new: true }
 		);
 
-		if (!user) {
-			return res.status(404).json({ message: "User not found" });
+		if (!friend) {
+			return res.status(404).json({ message: "Friend not found" });
 		}
 
-		res.json(user);
+		res.status(200).json(friend);
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}
