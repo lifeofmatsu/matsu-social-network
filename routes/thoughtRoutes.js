@@ -12,14 +12,14 @@ const {
 const router = express.Router();
 
 // Define routes
-router.get('/thoughts', getAllThoughts);
-router.get('/thoughts/:id', getThoughtById);
-router.post('/thoughts', createThought);
-router.put('/thoughts/:id', updateThought);
-router.delete('/thoughts/:id', deleteThought);
+router.get('/', getAllThoughts);
+router.get('/:id', getThoughtById);
+router.post('/', createThought);
+router.put('/:id', updateThought);
+router.delete('/:id', deleteThought);
 
 // Routes for reactions
-router.post('/thoughts/:thoughtId/reactions', addReaction);
-router.delete('/thoughts/:thoughtId/reactions/:reactionId', removeReaction);
+router.post('/:thoughtId/reactions', addReaction);
+router.delete('/:thoughtId/reactions/:reactionId', removeReaction);
 
 module.exports = router;

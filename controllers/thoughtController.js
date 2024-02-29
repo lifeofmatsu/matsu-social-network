@@ -1,4 +1,4 @@
-const { User, Thought } = require("../models");
+const { User, Thought } = require('../models');
 
 // CREATE a new thought
 const createThought = async (req, res) => {
@@ -10,6 +10,7 @@ const createThought = async (req, res) => {
 		await User.findByIdAndUpdate(req.body.userId, {
 			$push: { thoughts: thought._id },
 		});
+		
 		res.status(201).json(thought);
 	} catch (error) {
 		res.status(400).json({ message: error.message });
@@ -20,7 +21,7 @@ const createThought = async (req, res) => {
 const getAllThoughts = async (req, res) => {
 	try {
 		const thoughts = await Thought.find({});
-		res.json(thoughts);
+		res.status(201).json(thoughts);
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}
@@ -32,7 +33,7 @@ const getThoughtById = async (req, res) => {
 		const thought = await Thought.findById(req.params.id);
 
 		if (!thought) {
-			return res.status(404).json({ message: "Thought not found" });
+			return res.status(404).json({ message: 'Thought not found' });
 		}
 
 		res.json(thought);
@@ -51,7 +52,7 @@ const updateThought = async (req, res) => {
 		);
 
 		if (!updatedThought) {
-			return res.status(404).json({ message: "Thought not found" });
+			return res.status(404).json({ message: 'Thought not found' });
 		}
 
 		res.json(updatedThought);
@@ -66,14 +67,14 @@ const deleteThought = async (req, res) => {
 		const thought = await Thought.findByIdAndDelete(req.params.id);
 
 		if (!thought) {
-			return res.status(404).json({ message: "Thought not found" });
+			return res.status(404).json({ message: 'Thought not found' });
 		}
 
 		// Optionally remove the thought from the user's thoughts array
 		await User.findByIdAndUpdate(thought.userId, {
 			$pull: { thoughts: req.params.id },
 		});
-		res.json({ message: "Thought successfully deleted" });
+		res.json({ message: 'Thought successfully deleted' });
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}
@@ -88,7 +89,7 @@ const addReaction = async (req, res) => {
 		);
 
 		if (!thought) {
-			return res.status(404).json({ message: "Thought not found" });
+			return res.status(404).json({ message: 'Thought not found' });
 		}
 
 		res.json(thought);
@@ -106,7 +107,7 @@ const removeReaction = async (req, res) => {
 		);
 
 		if (!thought) {
-			return res.status(404).json({ message: "Thought not found" });
+			return res.status(404).json({ message: 'Thought not found' });
 		}
 
 		res.json(thought);
