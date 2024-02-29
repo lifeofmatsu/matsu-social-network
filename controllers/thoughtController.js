@@ -3,17 +3,23 @@ const { User, Thought } = require('../models');
 // CREATE a new thought
 const createThought = async (req, res) => {
 	try {
-		const newThought = new Thought(req.body);
-		const thought = await newThought.save();
+		const newThought = await Thought.create(req.body);
 
 		// Add thought to the user's thoughts array
-		await User.findByIdAndUpdate(req.body.userId, {
-			$push: { thoughts: thought._id },
-		});
-		
-		res.status(201).json(thought);
+		const updatedUser = await User.findByIdAndUpdate(
+			req.body.userId,
+			{ $push: { thoughts: newThought._id } },
+			{ new: true }
+		);
+
+		// Check if user update was successful.
+		if (!updatedUser) {
+			return res.status(404).json({ message: 'User not found' });
+		}
+
+		res.status(201).json(newThought);
 	} catch (error) {
-		res.status(400).json({ message: error.message });
+		res.status(500).json({ message: error.message });
 	}
 };
 
@@ -57,7 +63,7 @@ const updateThought = async (req, res) => {
 
 		res.json(updatedThought);
 	} catch (error) {
-		res.status(400).json({ message: error.message });
+		res.status(500).json({ message: error.message });
 	}
 };
 
@@ -72,7 +78,7 @@ const deleteThought = async (req, res) => {
 
 		// Optionally remove the thought from the user's thoughts array
 		await User.findByIdAndUpdate(thought.userId, {
-			$pull: { thoughts: req.params.id },
+			$pull: { thoughts: req.params.id }
 		});
 		res.json({ message: 'Thought successfully deleted' });
 	} catch (error) {
@@ -94,7 +100,7 @@ const addReaction = async (req, res) => {
 
 		res.json(thought);
 	} catch (error) {
-		res.status(400).json({ message: error.message });
+		res.status(500).json({ message: error.message });
 	}
 };
 
@@ -112,7 +118,7 @@ const removeReaction = async (req, res) => {
 
 		res.json(thought);
 	} catch (error) {
-		res.status(400).json({ message: error.message });
+		res.status(500).json({ message: error.message });
 	}
 };
 
@@ -123,5 +129,5 @@ module.exports = {
 	updateThought,
 	deleteThought,
 	addReaction,
-	removeReaction,
+	removeReaction
 };

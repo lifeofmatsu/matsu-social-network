@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const users = require('./routes/userRoutes');
-const thoughts = require('./routes/thoughtRoutes');
+const userRoutes = require('./routes/userRoutes');
+const thoughtRoutes = require('./routes/thoughtRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -11,8 +11,10 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/', users);
-app.use('/', thoughts);
+
+// Route prefixing
+app.use('/users', userRoutes);
+app.use('/thoughts', thoughtRoutes);
 
 mongoose
     .connect(process.env.MONGODB_URI)
