@@ -47,7 +47,6 @@ THOUGHTS:
 - Remove Thought
 
 ![Insomnia-Example-Image](assets/Insomnia-Example-Image.png)
-![Insomnia-Image-2](assets/Insomnia-Image-2.png)
 
 ## License
 
