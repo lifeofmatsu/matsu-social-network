@@ -24,25 +24,27 @@ To get a local copy up and running, follow these simple steps:
 
 Use `insomnia` or `postman` execute the api calls to achieve the following:
 
-REACTIONS:
-- Create Reaction
-- Delete Reaction
-
-THOUGHTS:
-- Get all Thoughts
-- Get Single Thought by ID
-- Create Thought
-- Update Thought
-- Delete Thought
-
 USERS:
-- Get all Users
-- Get Single User by ID
-- Create User
+- Find All Users
+- Find User by ID
+- Add User
 - Update User
 - Delete User
+
+FRIENDS:
 - Add Friend
-- Delete Friend
+- Remove Friend
+
+REACTIONS:
+- Add Reaction
+- Remove Reaction
+
+THOUGHTS:
+- Find All Thoughts
+- Find Thought by ID
+- Add Thought
+- Update Thought
+- Remove Thought
 
 ![Insomnia-Image-1](assets/Insomnia-Image-1.png)
 ![Insomnia-Image-2](assets/Insomnia-Image-2.png)

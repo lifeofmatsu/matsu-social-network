@@ -29,7 +29,6 @@ const reactionSchema = new Schema(
 			virtuals: true,
 			getters: true
 		},
-		id: false
 	}
 );
 
@@ -58,7 +57,6 @@ const thoughtSchema = new Schema(
 			virtuals: true,
 			getters: true
 		},
-		id: false
 	}
 );
 
