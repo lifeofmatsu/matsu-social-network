@@ -1,27 +1,16 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const path = require('path');
-const userRoutes = require('./routes/userRoutes');
-const thoughtRoutes = require('./routes/thoughtRoutes');
-require('dotenv').config();
+const express = require("express");
+const db = require("./config/connection");
+const routes = require("./routes");
 
-const app = express();
 const PORT = process.env.PORT || 3001;
+const app = express();
 
-// Middleware
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(routes);
 
-// Route prefixing
-app.use('/users', userRoutes);
-app.use('/thoughts', thoughtRoutes);
-
-mongoose
-    .connect(process.env.MONGODB_URI)
-    .then(() => console.log('MongoDB connected'))
-    .catch((err) => console.log(err));
-
-
-app.listen(PORT, () => {
-	console.log(`Server running on port ${PORT}`);
+db.once("open", () => {
+  app.listen(PORT, () => {
+    console.log(`API Server running on port ${PORT}!`);
+  });
 });
