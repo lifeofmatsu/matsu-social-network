@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
-const { Schema, model } = mongoose;
+const { Schema, Types, model } = require('mongoose');
+const moment = require('moment');
 
 // Reaction Schema as a subdocument
 const reactionSchema = new Schema(
 	{
 		reactionId: {
 			type: Schema.Types.ObjectId,
-			default: () => new mongoose.Types.ObjectId()
+			default: () => new Types.ObjectId()
 		},
 		reactionBody: {
 			type: String,
@@ -20,7 +20,7 @@ const reactionSchema = new Schema(
 		createdAt: {
 			type: Date,
 			default: Date.now,
-			get: (timestamp) => new Date(timestamp).toLocaleString()
+			get: (timestamp) => moment(timestamp).format('MMM DD, YYYY [at] hh:mm a')
 		}
 	},
 	{
@@ -28,7 +28,8 @@ const reactionSchema = new Schema(
 		toJSON: {
 			virtuals: true,
 			getters: true
-		}
+		},
+		id: false
 	}
 );
 
@@ -43,7 +44,7 @@ const thoughtSchema = new Schema(
 		createdAt: {
 			type: Date,
 			default: Date.now,
-			get: (timestamp) => new Date(timestamp).toLocaleString()
+			get: (timestamp) => moment(timestamp).format('MMM DD, YYYY [at] hh:mm a')
 		},
 		username: {
 			type: String,
@@ -56,7 +57,8 @@ const thoughtSchema = new Schema(
 		toJSON: {
 			virtuals: true,
 			getters: true
-		}
+		},
+		id: false
 	}
 );
 
